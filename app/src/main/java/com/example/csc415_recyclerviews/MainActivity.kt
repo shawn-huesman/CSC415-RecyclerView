@@ -1,12 +1,7 @@
 package com.example.csc415_recyclerviews
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,7 +59,14 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_reset -> {
+                mWordList.clear()
+                populateLinkedList(mWordList)
+
+                mRecyclerView.adapter?.notifyDataSetChanged()
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

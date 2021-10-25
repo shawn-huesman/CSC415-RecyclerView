@@ -26,8 +26,20 @@ class WordListAdapter(context: Context?, wordList: LinkedList<String>) : Recycle
         return mWordList.size;
     }
 
-    inner class WordViewHolder(itemView: View, adapter: WordListAdapter) : RecyclerView.ViewHolder(itemView) {
+    inner class WordViewHolder(itemView: View, adapter: WordListAdapter) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val wordItemView: TextView = itemView.findViewById(R.id.word)
         private val mAdapter: WordListAdapter = adapter
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(p0: View?) {
+            val mPosition: Int = layoutPosition
+            val element: String = mWordList[mPosition]
+            mWordList[mPosition] = "Clicked! $element"
+            mAdapter.notifyDataSetChanged()
+        }
     }
 }

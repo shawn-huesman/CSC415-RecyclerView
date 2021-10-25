@@ -15,8 +15,6 @@ import com.example.csc415_recyclerviews.databinding.ActivityMainBinding
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var mRecyclerView: RecyclerView
@@ -32,8 +30,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            val wordListSize: Int = mWordList.size
+            mWordList.addLast("+ Word $wordListSize")
+            mRecyclerView.adapter?.notifyItemInserted(wordListSize)
+            mRecyclerView.smoothScrollToPosition(wordListSize)
         }
 
         populateLinkedList(mWordList)
